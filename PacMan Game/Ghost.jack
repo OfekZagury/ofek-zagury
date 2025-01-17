@@ -1,0 +1,149 @@
+class Ghost {
+
+    // the position of ghost
+    field int row, col;
+
+    // the direction PacMan is moving
+    // 1=up, 2=down, 3=right, 4=left
+    field int direction;
+
+    constructor Ghost new(int row1, int col1, int newDirection) {
+        let row = row1;
+        let col = col1;
+        let direction = newDirection;
+        return this;
+    }
+    
+    method int getRow() {
+        return row;
+    }
+
+    method int getCol() {
+        return col;
+    }
+
+    method int getDirection() {
+        return direction;
+    }
+
+    method void move() { // changes the Ghosts location according to its direction
+        if (direction = 1) {
+            let row = row - 1;
+        }
+        if (direction = 2) {
+            let row = row + 1;
+        }
+        if (direction = 3) {
+            let col = col + 1;
+        }
+        if (direction = 4) {
+            let col = col - 1;
+        }
+        return;
+    }
+
+    method boolean isCollisionPacMan(PacMan pacMan) { // Checks if Ghost encounterd PacMan
+        var boolean isCollision;
+        let isCollision = false;
+        if (direction = 1) {
+            if ((pacMan.getRow() + 15 = row) & (col - 16 < pacMan.getCol()) & (col + 16 > pacMan.getCol())) {
+                let isCollision = true;
+            }
+        }
+        if (direction = 2) {
+            if ((pacMan.getRow() - 15 = row) & (col - 16 < pacMan.getCol()) & (col + 16 > pacMan.getCol())) {
+                let isCollision = true;
+            }
+        }
+        if (direction = 3) {
+            if ((pacMan.getCol() - 15 = col) & (row - 16 < pacMan.getRow()) & (row + 16 > pacMan.getRow())) {
+                let isCollision = true;
+            }
+        }
+        if (direction = 4) {
+            if ((pacMan.getCol() + 15 = col) & (row - 16 < pacMan.getRow()) & (row + 16 > pacMan.getRow())) {
+                let isCollision = true;
+            }
+        }
+        return isCollision;
+    }
+
+
+    method boolean isPixelBlack(int row, int col) {
+        var int memAddress, pixelValue;
+        let memAddress = 16384 + (row * 32) + (col / 16);
+        let pixelValue = Memory.peek(memAddress);
+        if (pixelValue = -1) {
+            return true;
+        }
+        return false;
+    }
+
+    method boolean willCollideWithWall() { // Checks if Ghost will walk into wall if he will continue in his direction
+        var int i;
+        let i = 0;
+        if (direction = 1) {
+            while (i < 16) {
+                if (isPixelBlack(row - 1, col + i)) {
+                    return true;
+                }
+                let i = i + 1;
+            }
+        }
+        let i = 0;
+        if (direction = 2) {
+            while (i < 16) {
+                if (isPixelBlack(row + 16, col + i)) {
+                    return true;
+                }
+                let i = i + 1;
+            }
+        }
+        let i = 0;
+        if (direction = 3) {
+            while (i < 16) {
+                if (isPixelBlack(row + i , col + 16)) {
+                    return true;
+                }
+                let i = i + 1;
+            }
+        }
+        
+        let i = 0;
+        if (direction = 4) {
+            while (i < 16) {
+                if (isPixelBlack(row + i , col - 1)) {
+                    return true;
+                }
+                let i = i + 1;
+            }
+        }
+        
+        return false;
+    }
+
+    method void setDirection() { // Sets the ghost's direction manually to create his route
+        if (direction = 1) {
+            let direction = 3;
+            return;
+        }
+        if (direction = 2) {
+            let direction = 4;
+            return;
+        }
+        if (direction = 3) {
+            let direction = 2;
+            return;
+        }
+        if (direction = 4) {
+            let direction = 1;
+            return;
+        }
+        return;
+	}
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+}

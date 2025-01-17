@@ -1,0 +1,772 @@
+function PacManGame.new 0
+    push constant 13
+    call Memory.alloc 1
+    pop pointer 0
+    push constant 0
+    pop this 4
+    push constant 0
+    pop this 5
+    push constant 16
+    push constant 16
+    push constant 2
+    call PacMan.new 3
+    pop this 0
+    push this 0
+    call PacMan.getRow 1
+    push constant 32
+    call Math.multiply 2
+    push this 0
+    call PacMan.getCol 1
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.drawPacManDown 1
+    pop temp 0
+    push constant 16
+    push constant 480
+    push constant 2
+    call Ghost.new 3
+    pop this 1
+    push this 1
+    call Ghost.getRow 1
+    push constant 32
+    call Math.multiply 2
+    push this 1
+    call Ghost.getCol 1
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.drawGhost 1
+    pop temp 0
+    push constant 224
+    push constant 480
+    push constant 4
+    call Ghost.new 3
+    pop this 2
+    push this 2
+    call Ghost.getRow 1
+    push constant 32
+    call Math.multiply 2
+    push this 2
+    call Ghost.getCol 1
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.drawGhost 1
+    pop temp 0
+    push constant 224
+    push constant 16
+    push constant 1
+    call Ghost.new 3
+    pop this 3
+    push this 3
+    call Ghost.getRow 1
+    push constant 32
+    call Math.multiply 2
+    push this 3
+    call Ghost.getCol 1
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.drawGhost 1
+    pop temp 0
+    call Display.drawMaze 0
+    pop temp 0
+    call Display.drawPellets 0
+    pop this 6
+    push constant 48
+    push constant 32
+    call Math.multiply 2
+    push constant 448
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.drawApple 1
+    pop temp 0
+    push constant 144
+    push constant 32
+    call Math.multiply 2
+    push constant 224
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.drawApple 1
+    pop temp 0
+    push constant 192
+    push constant 32
+    call Math.multiply 2
+    push constant 48
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.drawCherries 1
+    pop temp 0
+    push constant 224
+    push constant 32
+    call Math.multiply 2
+    push constant 336
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.drawCherries 1
+    pop temp 0
+    push constant 192
+    push constant 32
+    call Math.multiply 2
+    push constant 448
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.drawStrawBerry 1
+    pop temp 0
+    push constant 16
+    push constant 32
+    call Math.multiply 2
+    push constant 336
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.drawStrawBerry 1
+    pop temp 0
+    push constant 0
+    pop this 7
+    push constant 0
+    pop this 8
+    push constant 0
+    pop this 9
+    push constant 0
+    pop this 10
+    push constant 0
+    pop this 11
+    push constant 0
+    pop this 12
+    push pointer 0
+    return
+function PacManGame.runPacManGame 0
+    push argument 0
+    pop pointer 0
+label PacManGame_0
+    push this 4
+    not
+    push this 5
+    not
+    and
+    not
+    if-goto PacManGame_1
+    push this 0
+    call PacMan.setDirection 1
+    pop temp 0
+    push this 0
+    call PacMan.getRow 1
+    push constant 32
+    call Math.multiply 2
+    push this 0
+    call PacMan.getCol 1
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.deleteIcon 1
+    pop temp 0
+    push this 0
+    call PacMan.getDirection 1
+    push constant 1
+    eq
+    not
+    if-goto PacManGame_3
+    push this 0
+    call PacMan.getRow 1
+    push constant 32
+    call Math.multiply 2
+    push this 0
+    call PacMan.getCol 1
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.drawPacManUp 1
+    pop temp 0
+    goto PacManGame_2
+label PacManGame_3
+label PacManGame_2
+    push this 0
+    call PacMan.getDirection 1
+    push constant 2
+    eq
+    not
+    if-goto PacManGame_5
+    push this 0
+    call PacMan.getRow 1
+    push constant 32
+    call Math.multiply 2
+    push this 0
+    call PacMan.getCol 1
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.drawPacManDown 1
+    pop temp 0
+    goto PacManGame_4
+label PacManGame_5
+label PacManGame_4
+    push this 0
+    call PacMan.getDirection 1
+    push constant 3
+    eq
+    not
+    if-goto PacManGame_7
+    push this 0
+    call PacMan.getRow 1
+    push constant 32
+    call Math.multiply 2
+    push this 0
+    call PacMan.getCol 1
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.drawPacManRight 1
+    pop temp 0
+    goto PacManGame_6
+label PacManGame_7
+label PacManGame_6
+    push this 0
+    call PacMan.getDirection 1
+    push constant 4
+    eq
+    not
+    if-goto PacManGame_9
+    push this 0
+    call PacMan.getRow 1
+    push constant 32
+    call Math.multiply 2
+    push this 0
+    call PacMan.getCol 1
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.drawPacManLeft 1
+    pop temp 0
+    goto PacManGame_8
+label PacManGame_9
+label PacManGame_8
+    push this 0
+    call PacMan.willCollideWithWall 1
+    push constant 0
+    eq
+    not
+    if-goto PacManGame_11
+    push this 0
+    call PacMan.getRow 1
+    push constant 32
+    call Math.multiply 2
+    push this 0
+    call PacMan.getCol 1
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.deleteIcon 1
+    pop temp 0
+    push this 0
+    call PacMan.move 1
+    pop temp 0
+    push this 0
+    call PacMan.getDirection 1
+    push constant 1
+    eq
+    not
+    if-goto PacManGame_13
+    push this 0
+    call PacMan.getRow 1
+    push constant 32
+    call Math.multiply 2
+    push this 0
+    call PacMan.getCol 1
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.drawPacManUp 1
+    pop temp 0
+    goto PacManGame_12
+label PacManGame_13
+label PacManGame_12
+    push this 0
+    call PacMan.getDirection 1
+    push constant 2
+    eq
+    not
+    if-goto PacManGame_15
+    push this 0
+    call PacMan.getRow 1
+    push constant 32
+    call Math.multiply 2
+    push this 0
+    call PacMan.getCol 1
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.drawPacManDown 1
+    pop temp 0
+    goto PacManGame_14
+label PacManGame_15
+label PacManGame_14
+    push this 0
+    call PacMan.getDirection 1
+    push constant 3
+    eq
+    not
+    if-goto PacManGame_17
+    push this 0
+    call PacMan.getRow 1
+    push constant 32
+    call Math.multiply 2
+    push this 0
+    call PacMan.getCol 1
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.drawPacManRight 1
+    pop temp 0
+    goto PacManGame_16
+label PacManGame_17
+label PacManGame_16
+    push this 0
+    call PacMan.getDirection 1
+    push constant 4
+    eq
+    not
+    if-goto PacManGame_19
+    push this 0
+    call PacMan.getRow 1
+    push constant 32
+    call Math.multiply 2
+    push this 0
+    call PacMan.getCol 1
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.drawPacManLeft 1
+    pop temp 0
+    goto PacManGame_18
+label PacManGame_19
+label PacManGame_18
+    goto PacManGame_10
+label PacManGame_11
+label PacManGame_10
+    push this 1
+    call Ghost.willCollideWithWall 1
+    push constant 1
+    neg
+    eq
+    not
+    if-goto PacManGame_21
+    push this 1
+    call Ghost.setDirection 1
+    pop temp 0
+    goto PacManGame_20
+label PacManGame_21
+label PacManGame_20
+    push this 1
+    call Ghost.getRow 1
+    push constant 32
+    call Math.multiply 2
+    push this 1
+    call Ghost.getCol 1
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.deleteIcon 1
+    pop temp 0
+    push this 1
+    call Ghost.move 1
+    pop temp 0
+    push this 1
+    call Ghost.getRow 1
+    push constant 32
+    call Math.multiply 2
+    push this 1
+    call Ghost.getCol 1
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.drawGhost 1
+    pop temp 0
+    push this 2
+    call Ghost.willCollideWithWall 1
+    push constant 1
+    neg
+    eq
+    not
+    if-goto PacManGame_23
+    push this 2
+    call Ghost.setDirection 1
+    pop temp 0
+    goto PacManGame_22
+label PacManGame_23
+label PacManGame_22
+    push this 2
+    call Ghost.getRow 1
+    push constant 32
+    call Math.multiply 2
+    push this 2
+    call Ghost.getCol 1
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.deleteIcon 1
+    pop temp 0
+    push this 2
+    call Ghost.move 1
+    pop temp 0
+    push this 2
+    call Ghost.getRow 1
+    push constant 32
+    call Math.multiply 2
+    push this 2
+    call Ghost.getCol 1
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.drawGhost 1
+    pop temp 0
+    push this 3
+    call Ghost.willCollideWithWall 1
+    push constant 1
+    neg
+    eq
+    not
+    if-goto PacManGame_25
+    push this 3
+    call Ghost.setDirection 1
+    pop temp 0
+    goto PacManGame_24
+label PacManGame_25
+label PacManGame_24
+    push this 3
+    call Ghost.getRow 1
+    push constant 32
+    call Math.multiply 2
+    push this 3
+    call Ghost.getCol 1
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.deleteIcon 1
+    pop temp 0
+    push this 3
+    call Ghost.move 1
+    pop temp 0
+    push this 3
+    call Ghost.getRow 1
+    push constant 32
+    call Math.multiply 2
+    push this 3
+    call Ghost.getCol 1
+    push constant 16
+    call Math.divide 2
+    add
+    call Display.drawGhost 1
+    pop temp 0
+    push this 1
+    push this 0
+    call Ghost.isCollisionPacMan 2
+    push this 2
+    push this 0
+    call Ghost.isCollisionPacMan 2
+    or
+    push this 3
+    push this 0
+    call Ghost.isCollisionPacMan 2
+    or
+    not
+    if-goto PacManGame_27
+    push constant 1
+    neg
+    pop this 4
+    goto PacManGame_26
+label PacManGame_27
+label PacManGame_26
+    push this 0
+    call PacMan.isCollisionApple 1
+    push constant 1
+    neg
+    eq
+    not
+    if-goto PacManGame_29
+    push constant 1
+    neg
+    pop this 7
+    goto PacManGame_28
+label PacManGame_29
+label PacManGame_28
+    push this 0
+    call PacMan.isCollisionApple2 1
+    push constant 1
+    neg
+    eq
+    not
+    if-goto PacManGame_31
+    push constant 1
+    neg
+    pop this 8
+    goto PacManGame_30
+label PacManGame_31
+label PacManGame_30
+    push this 0
+    call PacMan.isCollisionCherries 1
+    push constant 1
+    neg
+    eq
+    not
+    if-goto PacManGame_33
+    push constant 1
+    neg
+    pop this 9
+    goto PacManGame_32
+label PacManGame_33
+label PacManGame_32
+    push this 0
+    call PacMan.isCollisionCherries2 1
+    push constant 1
+    neg
+    eq
+    not
+    if-goto PacManGame_35
+    push constant 1
+    neg
+    pop this 10
+    goto PacManGame_34
+label PacManGame_35
+label PacManGame_34
+    push this 0
+    call PacMan.isCollisionStrawBerry 1
+    push constant 1
+    neg
+    eq
+    not
+    if-goto PacManGame_37
+    push constant 1
+    neg
+    pop this 11
+    goto PacManGame_36
+label PacManGame_37
+label PacManGame_36
+    push this 0
+    call PacMan.isCollisionStrawBerry2 1
+    push constant 1
+    neg
+    eq
+    not
+    if-goto PacManGame_39
+    push constant 1
+    neg
+    pop this 12
+    goto PacManGame_38
+label PacManGame_39
+label PacManGame_38
+    push this 7
+    push constant 1
+    neg
+    eq
+    push this 9
+    and
+    push constant 1
+    neg
+    eq
+    push this 11
+    and
+    push constant 1
+    neg
+    eq
+    push this 8
+    and
+    push constant 1
+    neg
+    eq
+    push this 10
+    and
+    push constant 1
+    neg
+    eq
+    push this 12
+    and
+    push constant 1
+    neg
+    eq
+    not
+    if-goto PacManGame_41
+    push constant 1
+    neg
+    pop this 5
+    goto PacManGame_40
+label PacManGame_41
+label PacManGame_40
+    goto PacManGame_0
+label PacManGame_1
+    push this 4
+    not
+    if-goto PacManGame_43
+    push constant 0
+    push constant 0
+    call Output.moveCursor 2
+    pop temp 0
+    push constant 63
+    call String.new 1
+    push constant 71
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 109
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 79
+    call String.appendChar 2
+    push constant 118
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 44
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 98
+    call String.appendChar 2
+    push constant 117
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 110
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 118
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 103
+    call String.appendChar 2
+    push constant 105
+    call String.appendChar 2
+    push constant 118
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 85
+    call String.appendChar 2
+    push constant 112
+    call String.appendChar 2
+    push constant 33
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 112
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 115
+    call String.appendChar 2
+    push constant 115
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 83
+    call String.appendChar 2
+    push constant 80
+    call String.appendChar 2
+    push constant 65
+    call String.appendChar 2
+    push constant 67
+    call String.appendChar 2
+    push constant 69
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 107
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 121
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 115
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 103
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 105
+    call String.appendChar 2
+    push constant 110
+    call String.appendChar 2
+    call Output.printString 1
+    pop temp 0
+    goto PacManGame_42
+label PacManGame_43
+label PacManGame_42
+    push this 5
+    not
+    if-goto PacManGame_45
+    call Display.endScreen 0
+    pop temp 0
+    goto PacManGame_44
+label PacManGame_45
+label PacManGame_44
+    push constant 0
+    return
+function PacManGame.dispose 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    call PacMan.dispose 1
+    pop temp 0
+    push this 1
+    call Ghost.dispose 1
+    pop temp 0
+    push this 2
+    call Ghost.dispose 1
+    pop temp 0
+    push this 3
+    call Ghost.dispose 1
+    pop temp 0
+    push pointer 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return

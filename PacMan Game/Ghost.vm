@@ -1,0 +1,479 @@
+function Ghost.new 0
+    push constant 3
+    call Memory.alloc 1
+    pop pointer 0
+    push argument 0
+    pop this 0
+    push argument 1
+    pop this 1
+    push argument 2
+    pop this 2
+    push pointer 0
+    return
+function Ghost.getRow 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    return
+function Ghost.getCol 0
+    push argument 0
+    pop pointer 0
+    push this 1
+    return
+function Ghost.getDirection 0
+    push argument 0
+    pop pointer 0
+    push this 2
+    return
+function Ghost.move 0
+    push argument 0
+    pop pointer 0
+    push this 2
+    push constant 1
+    eq
+    not
+    if-goto Ghost_1
+    push this 0
+    push constant 1
+    sub
+    pop this 0
+    goto Ghost_0
+label Ghost_1
+label Ghost_0
+    push this 2
+    push constant 2
+    eq
+    not
+    if-goto Ghost_3
+    push this 0
+    push constant 1
+    add
+    pop this 0
+    goto Ghost_2
+label Ghost_3
+label Ghost_2
+    push this 2
+    push constant 3
+    eq
+    not
+    if-goto Ghost_5
+    push this 1
+    push constant 1
+    add
+    pop this 1
+    goto Ghost_4
+label Ghost_5
+label Ghost_4
+    push this 2
+    push constant 4
+    eq
+    not
+    if-goto Ghost_7
+    push this 1
+    push constant 1
+    sub
+    pop this 1
+    goto Ghost_6
+label Ghost_7
+label Ghost_6
+    push constant 0
+    return
+function Ghost.isCollisionPacMan 1
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop local 0
+    push this 2
+    push constant 1
+    eq
+    not
+    if-goto Ghost_9
+    push argument 1
+    call PacMan.getRow 1
+    push constant 15
+    add
+    push this 0
+    eq
+    push this 1
+    push constant 16
+    sub
+    push argument 1
+    call PacMan.getCol 1
+    lt
+    and
+    push this 1
+    push constant 16
+    add
+    push argument 1
+    call PacMan.getCol 1
+    gt
+    and
+    not
+    if-goto Ghost_11
+    push constant 1
+    neg
+    pop local 0
+    goto Ghost_10
+label Ghost_11
+label Ghost_10
+    goto Ghost_8
+label Ghost_9
+label Ghost_8
+    push this 2
+    push constant 2
+    eq
+    not
+    if-goto Ghost_13
+    push argument 1
+    call PacMan.getRow 1
+    push constant 15
+    sub
+    push this 0
+    eq
+    push this 1
+    push constant 16
+    sub
+    push argument 1
+    call PacMan.getCol 1
+    lt
+    and
+    push this 1
+    push constant 16
+    add
+    push argument 1
+    call PacMan.getCol 1
+    gt
+    and
+    not
+    if-goto Ghost_15
+    push constant 1
+    neg
+    pop local 0
+    goto Ghost_14
+label Ghost_15
+label Ghost_14
+    goto Ghost_12
+label Ghost_13
+label Ghost_12
+    push this 2
+    push constant 3
+    eq
+    not
+    if-goto Ghost_17
+    push argument 1
+    call PacMan.getCol 1
+    push constant 15
+    sub
+    push this 1
+    eq
+    push this 0
+    push constant 16
+    sub
+    push argument 1
+    call PacMan.getRow 1
+    lt
+    and
+    push this 0
+    push constant 16
+    add
+    push argument 1
+    call PacMan.getRow 1
+    gt
+    and
+    not
+    if-goto Ghost_19
+    push constant 1
+    neg
+    pop local 0
+    goto Ghost_18
+label Ghost_19
+label Ghost_18
+    goto Ghost_16
+label Ghost_17
+label Ghost_16
+    push this 2
+    push constant 4
+    eq
+    not
+    if-goto Ghost_21
+    push argument 1
+    call PacMan.getCol 1
+    push constant 15
+    add
+    push this 1
+    eq
+    push this 0
+    push constant 16
+    sub
+    push argument 1
+    call PacMan.getRow 1
+    lt
+    and
+    push this 0
+    push constant 16
+    add
+    push argument 1
+    call PacMan.getRow 1
+    gt
+    and
+    not
+    if-goto Ghost_23
+    push constant 1
+    neg
+    pop local 0
+    goto Ghost_22
+label Ghost_23
+label Ghost_22
+    goto Ghost_20
+label Ghost_21
+label Ghost_20
+    push local 0
+    return
+function Ghost.isPixelBlack 2
+    push argument 0
+    pop pointer 0
+    push constant 16384
+    push argument 1
+    push constant 32
+    call Math.multiply 2
+    add
+    push argument 2
+    push constant 16
+    call Math.divide 2
+    add
+    pop local 0
+    push local 0
+    call Memory.peek 1
+    pop local 1
+    push local 1
+    push constant 1
+    neg
+    eq
+    not
+    if-goto Ghost_25
+    push constant 1
+    neg
+    return
+    goto Ghost_24
+label Ghost_25
+label Ghost_24
+    push constant 0
+    return
+function Ghost.willCollideWithWall 1
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop local 0
+    push this 2
+    push constant 1
+    eq
+    not
+    if-goto Ghost_27
+label Ghost_28
+    push local 0
+    push constant 16
+    lt
+    not
+    if-goto Ghost_29
+    push pointer 0
+    push this 0
+    push constant 1
+    sub
+    push this 1
+    push local 0
+    add
+    call Ghost.isPixelBlack 3
+    not
+    if-goto Ghost_31
+    push constant 1
+    neg
+    return
+    goto Ghost_30
+label Ghost_31
+label Ghost_30
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto Ghost_28
+label Ghost_29
+    goto Ghost_26
+label Ghost_27
+label Ghost_26
+    push constant 0
+    pop local 0
+    push this 2
+    push constant 2
+    eq
+    not
+    if-goto Ghost_33
+label Ghost_34
+    push local 0
+    push constant 16
+    lt
+    not
+    if-goto Ghost_35
+    push pointer 0
+    push this 0
+    push constant 16
+    add
+    push this 1
+    push local 0
+    add
+    call Ghost.isPixelBlack 3
+    not
+    if-goto Ghost_37
+    push constant 1
+    neg
+    return
+    goto Ghost_36
+label Ghost_37
+label Ghost_36
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto Ghost_34
+label Ghost_35
+    goto Ghost_32
+label Ghost_33
+label Ghost_32
+    push constant 0
+    pop local 0
+    push this 2
+    push constant 3
+    eq
+    not
+    if-goto Ghost_39
+label Ghost_40
+    push local 0
+    push constant 16
+    lt
+    not
+    if-goto Ghost_41
+    push pointer 0
+    push this 0
+    push local 0
+    add
+    push this 1
+    push constant 16
+    add
+    call Ghost.isPixelBlack 3
+    not
+    if-goto Ghost_43
+    push constant 1
+    neg
+    return
+    goto Ghost_42
+label Ghost_43
+label Ghost_42
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto Ghost_40
+label Ghost_41
+    goto Ghost_38
+label Ghost_39
+label Ghost_38
+    push constant 0
+    pop local 0
+    push this 2
+    push constant 4
+    eq
+    not
+    if-goto Ghost_45
+label Ghost_46
+    push local 0
+    push constant 16
+    lt
+    not
+    if-goto Ghost_47
+    push pointer 0
+    push this 0
+    push local 0
+    add
+    push this 1
+    push constant 1
+    sub
+    call Ghost.isPixelBlack 3
+    not
+    if-goto Ghost_49
+    push constant 1
+    neg
+    return
+    goto Ghost_48
+label Ghost_49
+label Ghost_48
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto Ghost_46
+label Ghost_47
+    goto Ghost_44
+label Ghost_45
+label Ghost_44
+    push constant 0
+    return
+function Ghost.setDirection 0
+    push argument 0
+    pop pointer 0
+    push this 2
+    push constant 1
+    eq
+    not
+    if-goto Ghost_51
+    push constant 3
+    pop this 2
+    push constant 0
+    return
+    goto Ghost_50
+label Ghost_51
+label Ghost_50
+    push this 2
+    push constant 2
+    eq
+    not
+    if-goto Ghost_53
+    push constant 4
+    pop this 2
+    push constant 0
+    return
+    goto Ghost_52
+label Ghost_53
+label Ghost_52
+    push this 2
+    push constant 3
+    eq
+    not
+    if-goto Ghost_55
+    push constant 2
+    pop this 2
+    push constant 0
+    return
+    goto Ghost_54
+label Ghost_55
+label Ghost_54
+    push this 2
+    push constant 4
+    eq
+    not
+    if-goto Ghost_57
+    push constant 1
+    pop this 2
+    push constant 0
+    return
+    goto Ghost_56
+label Ghost_57
+label Ghost_56
+    push constant 0
+    return
+function Ghost.dispose 0
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return

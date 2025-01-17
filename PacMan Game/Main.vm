@@ -1,0 +1,45 @@
+function Main.main 3
+    call Display.startScreen 0
+    pop temp 0
+label Main_0
+    push constant 1
+    neg
+    not
+    if-goto Main_1
+    call PacManGame.new 0
+    pop local 1
+    push local 1
+    call PacManGame.runPacManGame 1
+    pop temp 0
+    push local 1
+    call PacManGame.dispose 1
+    pop temp 0
+    push constant 0
+    pop local 2
+label Main_2
+    push local 2
+    push constant 0
+    eq
+    not
+    if-goto Main_3
+    call Keyboard.keyPressed 0
+    pop local 0
+    push local 0
+    push constant 32
+    eq
+    not
+    if-goto Main_5
+    call Screen.clearScreen 0
+    pop temp 0
+    push constant 1
+    neg
+    pop local 2
+    goto Main_4
+label Main_5
+label Main_4
+    goto Main_2
+label Main_3
+    goto Main_0
+label Main_1
+    push constant 0
+    return

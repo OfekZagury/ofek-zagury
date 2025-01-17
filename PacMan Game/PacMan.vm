@@ -1,0 +1,442 @@
+function PacMan.new 0
+    push constant 3
+    call Memory.alloc 1
+    pop pointer 0
+    push argument 0
+    pop this 0
+    push argument 1
+    pop this 1
+    push argument 2
+    pop this 2
+    push pointer 0
+    return
+function PacMan.getRow 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    return
+function PacMan.getCol 0
+    push argument 0
+    pop pointer 0
+    push this 1
+    return
+function PacMan.getDirection 0
+    push argument 0
+    pop pointer 0
+    push this 2
+    return
+function PacMan.setDirection 1
+    push argument 0
+    pop pointer 0
+    call Keyboard.keyPressed 0
+    pop local 0
+    push local 0
+    push constant 131
+    eq
+    not
+    if-goto PacMan_1
+    push constant 1
+    pop this 2
+    goto PacMan_0
+label PacMan_1
+label PacMan_0
+    push local 0
+    push constant 133
+    eq
+    not
+    if-goto PacMan_3
+    push constant 2
+    pop this 2
+    goto PacMan_2
+label PacMan_3
+label PacMan_2
+    push local 0
+    push constant 132
+    eq
+    not
+    if-goto PacMan_5
+    push constant 3
+    pop this 2
+    goto PacMan_4
+label PacMan_5
+label PacMan_4
+    push local 0
+    push constant 130
+    eq
+    not
+    if-goto PacMan_7
+    push constant 4
+    pop this 2
+    goto PacMan_6
+label PacMan_7
+label PacMan_6
+    push constant 0
+    return
+function PacMan.move 0
+    push argument 0
+    pop pointer 0
+    push this 2
+    push constant 1
+    eq
+    not
+    if-goto PacMan_9
+    push this 0
+    push constant 1
+    sub
+    pop this 0
+    goto PacMan_8
+label PacMan_9
+label PacMan_8
+    push this 2
+    push constant 2
+    eq
+    not
+    if-goto PacMan_11
+    push this 0
+    push constant 1
+    add
+    pop this 0
+    goto PacMan_10
+label PacMan_11
+label PacMan_10
+    push this 2
+    push constant 3
+    eq
+    not
+    if-goto PacMan_13
+    push this 1
+    push constant 1
+    add
+    pop this 1
+    goto PacMan_12
+label PacMan_13
+label PacMan_12
+    push this 2
+    push constant 4
+    eq
+    not
+    if-goto PacMan_15
+    push this 1
+    push constant 1
+    sub
+    pop this 1
+    goto PacMan_14
+label PacMan_15
+label PacMan_14
+    push constant 0
+    return
+function PacMan.isPixelBlack 2
+    push argument 0
+    pop pointer 0
+    push constant 16384
+    push argument 1
+    push constant 32
+    call Math.multiply 2
+    add
+    push argument 2
+    push constant 16
+    call Math.divide 2
+    add
+    pop local 0
+    push local 0
+    call Memory.peek 1
+    pop local 1
+    push local 1
+    push constant 1
+    neg
+    eq
+    not
+    if-goto PacMan_17
+    push constant 1
+    neg
+    return
+    goto PacMan_16
+label PacMan_17
+label PacMan_16
+    push constant 0
+    return
+function PacMan.willCollideWithWall 1
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop local 0
+    push this 2
+    push constant 1
+    eq
+    not
+    if-goto PacMan_19
+label PacMan_20
+    push local 0
+    push constant 16
+    lt
+    not
+    if-goto PacMan_21
+    push pointer 0
+    push this 0
+    push constant 1
+    sub
+    push this 1
+    push local 0
+    add
+    call PacMan.isPixelBlack 3
+    not
+    if-goto PacMan_23
+    push constant 1
+    neg
+    return
+    goto PacMan_22
+label PacMan_23
+label PacMan_22
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto PacMan_20
+label PacMan_21
+    goto PacMan_18
+label PacMan_19
+label PacMan_18
+    push constant 0
+    pop local 0
+    push this 2
+    push constant 2
+    eq
+    not
+    if-goto PacMan_25
+label PacMan_26
+    push local 0
+    push constant 16
+    lt
+    not
+    if-goto PacMan_27
+    push pointer 0
+    push this 0
+    push constant 16
+    add
+    push this 1
+    push local 0
+    add
+    call PacMan.isPixelBlack 3
+    not
+    if-goto PacMan_29
+    push constant 1
+    neg
+    return
+    goto PacMan_28
+label PacMan_29
+label PacMan_28
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto PacMan_26
+label PacMan_27
+    goto PacMan_24
+label PacMan_25
+label PacMan_24
+    push constant 0
+    pop local 0
+    push this 2
+    push constant 3
+    eq
+    not
+    if-goto PacMan_31
+label PacMan_32
+    push local 0
+    push constant 16
+    lt
+    not
+    if-goto PacMan_33
+    push pointer 0
+    push this 0
+    push local 0
+    add
+    push this 1
+    push constant 16
+    add
+    call PacMan.isPixelBlack 3
+    not
+    if-goto PacMan_35
+    push constant 1
+    neg
+    return
+    goto PacMan_34
+label PacMan_35
+label PacMan_34
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto PacMan_32
+label PacMan_33
+    goto PacMan_30
+label PacMan_31
+label PacMan_30
+    push constant 0
+    pop local 0
+    push this 2
+    push constant 4
+    eq
+    not
+    if-goto PacMan_37
+label PacMan_38
+    push local 0
+    push constant 16
+    lt
+    not
+    if-goto PacMan_39
+    push pointer 0
+    push this 0
+    push local 0
+    add
+    push this 1
+    push constant 1
+    sub
+    call PacMan.isPixelBlack 3
+    not
+    if-goto PacMan_41
+    push constant 1
+    neg
+    return
+    goto PacMan_40
+label PacMan_41
+label PacMan_40
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto PacMan_38
+label PacMan_39
+    goto PacMan_36
+label PacMan_37
+label PacMan_36
+    push constant 0
+    return
+function PacMan.isCollisionApple 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    push constant 48
+    eq
+    push this 1
+    and
+    push constant 448
+    eq
+    not
+    if-goto PacMan_43
+    push constant 1
+    neg
+    return
+    goto PacMan_42
+label PacMan_43
+label PacMan_42
+    push constant 0
+    return
+function PacMan.isCollisionApple2 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    push constant 144
+    eq
+    push this 1
+    and
+    push constant 224
+    eq
+    not
+    if-goto PacMan_45
+    push constant 1
+    neg
+    return
+    goto PacMan_44
+label PacMan_45
+label PacMan_44
+    push constant 0
+    return
+function PacMan.isCollisionCherries 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    push constant 192
+    eq
+    push this 1
+    and
+    push constant 48
+    eq
+    not
+    if-goto PacMan_47
+    push constant 1
+    neg
+    return
+    goto PacMan_46
+label PacMan_47
+label PacMan_46
+    push constant 0
+    return
+function PacMan.isCollisionCherries2 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    push constant 224
+    eq
+    push this 1
+    and
+    push constant 336
+    eq
+    not
+    if-goto PacMan_49
+    push constant 1
+    neg
+    return
+    goto PacMan_48
+label PacMan_49
+label PacMan_48
+    push constant 0
+    return
+function PacMan.isCollisionStrawBerry 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    push constant 192
+    eq
+    push this 1
+    and
+    push constant 448
+    eq
+    not
+    if-goto PacMan_51
+    push constant 1
+    neg
+    return
+    goto PacMan_50
+label PacMan_51
+label PacMan_50
+    push constant 0
+    return
+function PacMan.isCollisionStrawBerry2 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    push constant 16
+    eq
+    push this 1
+    and
+    push constant 336
+    eq
+    not
+    if-goto PacMan_53
+    push constant 1
+    neg
+    return
+    goto PacMan_52
+label PacMan_53
+label PacMan_52
+    push constant 0
+    return
+function PacMan.dispose 0
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return

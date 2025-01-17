@@ -1,0 +1,22 @@
+class Main {
+    function void  main() {
+        var char key;
+        var PacManGame game;
+        var boolean continue;
+        do Display.startScreen(); 
+        while (true) {
+            let game = PacManGame.new();
+            do game.runPacManGame();
+            do game.dispose();
+            let continue = false;
+            while (continue = false) {
+			    let key = Keyboard.keyPressed();
+			    if (key = 32) {
+				    do Screen.clearScreen();
+				    let continue = true;
+			    }
+		    }
+        }
+        return;
+    }
+}
